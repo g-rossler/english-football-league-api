@@ -1,12 +1,16 @@
-import express from 'express'
+import express, {Express, Request, Response} from 'express'
 import * as dotenv from 'dotenv' 
+import * as fs from "fs";
+
 dotenv.config()
 
-const app = express()
+const app: Express = express()
 const port = process.env.PORT;
 
-app.get('/', (req, res) => {
-  res.send('get')
+app.get('/', (_req: Request, res: Response) => {
+  const teamsFile = fs.readFileSync('./data/teams.json');
+  res.setHeader('Content-Type', 'application/json');
+  res.send(teamsFile)
 })
 
 app.listen(port, () => {
