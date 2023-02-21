@@ -15,10 +15,10 @@ app.get('/', (_req: Request, res: Response) => {
 })
 
 app.get('/team/:id',  (req: Request, res: Response) => {
-  const requestedTeam = Number(req.params.id);
+  const requestedTeamId = Number(req.params.id);
   const teamsFile = fs.readFileSync('./data/teams.json');
   const teamsFileParse = JSON.parse(teamsFile.toString());
-  const team = teamsFileParse.find((team: { id: number }) => team.id === requestedTeam)
+  const team = teamsFileParse.find((team: Team) => team.id === requestedTeamId)
   res.setHeader('Content-Type', 'application/json');
   res.send(team)
 })
