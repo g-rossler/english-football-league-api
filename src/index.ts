@@ -1,7 +1,8 @@
 import express, {Express, Request, Response} from 'express'
 import * as dotenv from 'dotenv' 
-import * as fs from "fs";
 import { Team } from './types';
+import { getTeamsList } from './service/service';
+import * as fs from "fs";
 
 dotenv.config()
 
@@ -9,9 +10,9 @@ const app: Express = express()
 const port = process.env.PORT;
 
 app.get('/', (_req: Request, res: Response) => {
-  const teamsFile = fs.readFileSync('./data/teams.json');
+  const teamsList = getTeamsList()
   res.setHeader('Content-Type', 'application/json');
-  res.send(teamsFile)
+  res.send(teamsList)
 })
 
 app.get('/team/:id',  (req: Request, res: Response) => {
